@@ -79,7 +79,6 @@ class ZooWindow(arcade.Window):
 
         # Shuffle the list of coordinates in-place
         random.shuffle(coords)
-        print("one tick")
 
         # Iterate in random order
         for x, y in coords:
@@ -96,7 +95,8 @@ class ZooWindow(arcade.Window):
                     else:
                         if type(ocritter) == type(critter):
                             west = enum.FRIEND
-                        west = enum.ENEMY
+                        else:
+                            west = enum.ENEMY
                 if x == len(self.critters)-1:
                     east = enum.WALL
                 else:
@@ -106,7 +106,8 @@ class ZooWindow(arcade.Window):
                     else:
                         if type(ocritter) == type(critter):
                             east = enum.FRIEND
-                        east = enum.ENEMY
+                        else:
+                            east = enum.ENEMY
                 if y == 0:
                     north = enum.WALL
                 else:
@@ -116,7 +117,8 @@ class ZooWindow(arcade.Window):
                     else:
                         if type(ocritter) == type(critter):
                             north = enum.FRIEND
-                        north = enum.ENEMY
+                        else:
+                            north = enum.ENEMY
                 if y == len(self.critters[x])-1:
                     south = enum.WALL
                 else:
@@ -126,7 +128,8 @@ class ZooWindow(arcade.Window):
                     else:
                         if type(ocritter) == type(critter):
                             south = enum.FRIEND
-                        south = enum.ENEMY
+                        else:
+                            south = enum.ENEMY
                 # Get move
                 # TODO name the numbes in facing with enums
                 if face == 0:
@@ -155,7 +158,7 @@ class ZooWindow(arcade.Window):
                         if north == enum.WALL or north == enum.FRIEND:
                             pass
                         elif north == enum.ENEMY:
-                            self.critters[x][y-1] = critter()
+                            self.critters[x][y-1] = type(critter)()
                             pass
                         elif north == enum.EMPTY:
                             self.critters[x][y] = None
@@ -165,7 +168,7 @@ class ZooWindow(arcade.Window):
                         if east == enum.WALL or east == enum.FRIEND:
                             pass
                         elif east == enum.ENEMY:
-                            self.critters[x][y-1] = critter()
+                            self.critters[x][y-1] = type(critter)()
                             pass
                         elif east == enum.EMPTY:
                             self.critters[x][y] = None
@@ -175,7 +178,7 @@ class ZooWindow(arcade.Window):
                         if south == enum.WALL or south == enum.FRIEND:
                             pass
                         elif south == enum.ENEMY:
-                            self.critters[x][y-1] = critter()
+                            self.critters[x][y-1] = type(critter)()
                             pass
                         elif south == enum.EMPTY:
                             self.critters[x][y] = None
@@ -185,13 +188,12 @@ class ZooWindow(arcade.Window):
                         if west == enum.WALL or west == enum.FRIEND:
                             pass
                         elif west == enum.ENEMY:
-                            self.critters[x][y-1] = critter()
+                            self.critters[x][y-1] = type(critter)()
                             pass
                         elif west == enum.EMPTY:
                             self.critters[x][y] = None
                             self.critters[x][y-1] = critter
                             pass
-        print("...done")
         # print("Ticking one step...")
     
     def populate(self):
