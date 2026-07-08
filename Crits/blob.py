@@ -10,10 +10,10 @@ class Blob(Critter):
         self.symbol = 'o'
     
     def move(self, forward, left, right, back):
-        choice = rand.randint(anger)
+        choice = self.rand.randint(0, self.anger)
         match choice:
             case 0:
-                anger = arger + 1
+                self.anger = self.anger + 1
                 return enum.WAIT
             case 1:
                 return enum.LEFT
