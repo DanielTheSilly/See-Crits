@@ -87,20 +87,9 @@ class ZooWindow(arcade.Window):
             # Get local view for cirt
             if critter != None:
                 if x == 0:
-                    west = enum.WALL
-                else:
-                    ocritter = self.critters[x-1][y]
-                    if ocritter == None:
-                        west = enum.EMPTY
-                    else:
-                        if type(ocritter) == type(critter):
-                            west = enum.FRIEND
-                        else:
-                            west = enum.ENEMY
-                if x == len(self.critters)-1:
                     east = enum.WALL
                 else:
-                    ocritter = self.critters[x+1][y]
+                    ocritter = self.critters[x-1][y]
                     if ocritter == None:
                         east = enum.EMPTY
                     else:
@@ -108,6 +97,17 @@ class ZooWindow(arcade.Window):
                             east = enum.FRIEND
                         else:
                             east = enum.ENEMY
+                if x == len(self.critters)-1:
+                    west = enum.WALL
+                else:
+                    ocritter = self.critters[x+1][y]
+                    if ocritter == None:
+                        west = enum.EMPTY
+                    else:
+                        if type(ocritter) == type(critter):
+                            west = enum.FRIEND
+                        else:
+                            west = enum.ENEMY
                 if y == 0:
                     north = enum.WALL
                 else:
@@ -147,11 +147,13 @@ class ZooWindow(arcade.Window):
                     face = face -1
                     if face == -1:
                         face = 3
+                    self.facing[x][y] = face
                     pass
                 elif move == enum.RIGHT:
                     face = face +1
                     if face == 4:
                         face = 0
+                    self.facing[x][y] = face
                     pass
                 elif move == enum.FORWARD:
                     if face == 0:
@@ -163,36 +165,40 @@ class ZooWindow(arcade.Window):
                         elif north == enum.EMPTY:
                             self.critters[x][y] = None
                             self.critters[x][y-1] = critter
+                            self.facing[x][y-1] = face
                             pass
                     elif face == 1:
                         if east == enum.WALL or east == enum.FRIEND:
                             pass
                         elif east == enum.ENEMY:
-                            self.critters[x][y-1] = type(critter)()
+                            self.critters[x-1][y] = type(critter)()
                             pass
                         elif east == enum.EMPTY:
                             self.critters[x][y] = None
-                            self.critters[x][y-1] = critter
+                            self.critters[x-1][y] = critter
+                            self.facing[x-1][y] = face
                             pass
                     elif face == 2:
                         if south == enum.WALL or south == enum.FRIEND:
                             pass
                         elif south == enum.ENEMY:
-                            self.critters[x][y-1] = type(critter)()
+                            self.critters[x][y+1] = type(critter)()
                             pass
                         elif south == enum.EMPTY:
                             self.critters[x][y] = None
-                            self.critters[x][y-1] = critter
+                            self.critters[x][y+1] = critter
+                            self.facing[x][y+1] = face
                             pass
                     else:
                         if west == enum.WALL or west == enum.FRIEND:
                             pass
                         elif west == enum.ENEMY:
-                            self.critters[x][y-1] = type(critter)()
+                            self.critters[x+1][y] = type(critter)()
                             pass
                         elif west == enum.EMPTY:
                             self.critters[x][y] = None
-                            self.critters[x][y-1] = critter
+                            self.critters[x+1][y] = critter
+                            self.facing[x+1][y] = face
                             pass
         # print("Ticking one step...")
     
@@ -212,6 +218,7 @@ class ZooWindow(arcade.Window):
                 y = self.rand.randint(0, len(self.critters[x])-1)
             self.critters[x][y] = self.critList[j]()
             self.facing[x][y] = self.rand.randint(0,3)
+            j += 1
             if j >= len(self.critList):
                 j = 0
 
