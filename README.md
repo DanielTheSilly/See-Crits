@@ -10,6 +10,8 @@ Can you beat all the other critters?
 
 It's MIT so that it will be easy to share your critters, modify the game and challenge your friends.
 
+![example](example.gif)
+
 # Rules
 
 Rules are simple. Your critter is given information about the spaces directly in front, left, right, and behind. From this you can tell if there's nothing, a wall, a friendly critter, or an enemy.
