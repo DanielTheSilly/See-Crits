@@ -10,6 +10,7 @@ class enum(IntEnum):
     WALL = 0
     ENEMY = 1
     EMPTY = 2
+    FRIEND = 3
 
 class Critter(ABC):
     def __init__(self):
